@@ -1,0 +1,3 @@
+# Tasks run in Linux containers: every checkout keeps LF, including
+# harbor's sparse checkouts on Windows (a CRLF test.sh breaks bash).
+* text=auto eol=lf

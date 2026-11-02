@@ -1,0 +1,39 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # setup-uv publishes no major tags since v8: pin the exact release.
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.13"
+      - name: Tasks
+        run: uv run --no-project --with pyyaml python .github/check_tasks.py
+      # harbor's own static checks, at the version harbor-voice pins, with
+      # pinned images required. Ignored by design: the verifier reads the
+      # call's results in the agent's sandbox (shared-verifier), and main
+      # mounts harbor-voice's TTS and wheel caches from the host (the two
+      # bind-mount rules).
+      - name: harbor lint
+        run: |
+          shopt -s nullglob
+          tasks=(datasets/*/*/)
+          if [ ${#tasks[@]} -eq 0 ]; then echo "no tasks"; exit 0; fi
+          # Compose lint resolves each task's ${VAR} templates: placeholders.
+          for name in $(grep -rhoE '\$\{[A-Z][A-Z0-9_]*' datasets --include=task.toml | cut -c3- | sort -u); do
+            export "$name=placeholder"
+          done
+          uvx --from harbor==0.25.0 harbor lint \
+            --extend-select unpinned-image \
+            --ignore shared-verifier \
+            --ignore compose-writable-bind-mount \
+            --ignore compose-external-bind-mount \
+            "${tasks[@]}"
