@@ -33,9 +33,22 @@ the one-time ElevenLabs setup.
 
 ## Datasets
 
-| Dataset | Tasks | Source |
+| Dataset | Tasks | What |
 |---|---|---|
-| | | |
+| `tau-voice-control` | 278 | every tau2-bench task, `control` speech (clean, patient turn-taking) |
+| `tau-voice-regular` | 278 | every tau2-bench task, `regular` speech (accents, noise, interruptions) |
+| `tau-voice-control-test` | 100 | tau2-bench's `test` split, `control` speech |
+| `tau-voice-regular-test` | 100 | tau2-bench's `test` split, `regular` speech: the τ-voice leaderboard's condition |
+| `tau-voice-parity-control` | 40 | the tau-voice adapter's parity sample, `control` speech |
+| `tau-voice-parity-regular` | 40 | the parity sample, `regular` speech |
+| `eva` | 213 | every EVA record, clean audio |
+| `eva-parity` | 60 | the EVA adapter's parity sample, 20 per domain |
+
+The tau-voice datasets come from
+[tau2-bench](https://github.com/sierra-research/tau2-bench) at `2174a60`, and
+the EVA datasets from [EVA](https://github.com/ServiceNow/eva) at `039efa0a`.
+How each adapter was checked against its original harness is in its
+`PARITY.md` in harbor-voice.
 
 ## Images
 
