@@ -1,2 +1,2 @@
 # main: the published image this task names (docker_image).
-FROM ghcr.io/amoh-ai/tau-voice-main:c168c1f67a@sha256:1ef3961c8f730e03b044c974a6a0fb4c6c34d972f02c302e24361c8d92292049
+FROM ghcr.io/amoh-ai/tau-voice-main:413a7f6ab7@sha256:07d114d033a25498b34a4650bd346346d0421a75c4f76abdaea957a9a05231f6
