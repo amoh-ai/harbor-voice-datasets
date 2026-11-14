@@ -25,7 +25,7 @@ reward = "EVA-A_pass"
 num_trials = 3
 
 [environment]
-docker_image = "ghcr.io/amoh-ai/eva-main:c168c1f67a@sha256:92dac11ab9ecd6e5e87bbb96c25031618aacd353f442646920c30270b015594d"
+docker_image = "ghcr.io/amoh-ai/eva-main:413a7f6ab7@sha256:8b6b809c619cab526575235dedf2f3acc3c01d39040f34a9784139ebce22a5f6"
 build_timeout_sec = 3600
 cpus = 2
 memory_mb = 4096

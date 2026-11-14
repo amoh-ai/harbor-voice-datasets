@@ -14,7 +14,7 @@ seed = 626729
 hallucination_retries = 3
 
 [environment]
-docker_image = "ghcr.io/amoh-ai/tau-voice-main:c168c1f67a@sha256:1ef3961c8f730e03b044c974a6a0fb4c6c34d972f02c302e24361c8d92292049"
+docker_image = "ghcr.io/amoh-ai/tau-voice-main:413a7f6ab7@sha256:07d114d033a25498b34a4650bd346346d0421a75c4f76abdaea957a9a05231f6"
 build_timeout_sec = 1800
 cpus = 2
 memory_mb = 4096

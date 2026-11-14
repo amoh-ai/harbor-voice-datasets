@@ -16,7 +16,7 @@ services:
       - ${HARBOR_VOICE_CACHE_DIR:-${HOME}/.cache/harbor-voice}/tts:/cache/tts
       - ${HARBOR_VOICE_CACHE_DIR:-${HOME}/.cache/harbor-voice}/uv:/root/.cache/uv
   tau2:
-    image: ghcr.io/amoh-ai/tau-voice-runtime:2174a60-3cefc407ea@sha256:5a911d83705c44805f342a86045c8380fcbf515d0703d7dba4b48d0529087253
+    image: ghcr.io/amoh-ai/tau-voice-runtime:2174a60-ce6c029644@sha256:d1e6c46bbdebbb20549b4a371010a3f2cee0a683a6a8802e5866eed31341d845
     environment:
       - OPENAI_API_KEY
       - AWS_ACCESS_KEY_ID

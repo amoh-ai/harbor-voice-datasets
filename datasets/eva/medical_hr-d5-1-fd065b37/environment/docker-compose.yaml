@@ -16,7 +16,7 @@ services:
       # Wheels' dependencies survive across trials.
       - ${HARBOR_VOICE_CACHE_DIR:-${HOME}/.cache/harbor-voice}/uv:/root/.cache/uv
   eva:
-    image: ghcr.io/amoh-ai/eva-sidecar:039efa0a-21e9a0b06c@sha256:6de7f4ff116baf7ddac7bdc7ae190b19a90987d1d1ecb45d9b59699d51ecc206
+    image: ghcr.io/amoh-ai/eva-sidecar:039efa0a-077f8e4f23@sha256:e6a952e88feea996a790f977266f3b1b52c1542550aa9e5cc931e9d48fe9ef12
     environment:
       - OPENAI_API_KEY
       - EVA_MODEL_LIST

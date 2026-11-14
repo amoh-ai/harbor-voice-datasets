@@ -17,12 +17,12 @@ released with:
 
 ```bash
 git clone https://github.com/amoh-ai/harbor-voice && cd harbor-voice && uv sync
-uv run eva-adapter job-config --hub-dataset eva@0.1.0 \
+uv run eva-adapter job-config --hub-dataset eva@0.1.1 \
     --model openai.realtime/gpt-realtime-1.5 -o job.yaml
 uv run harbor-voice jobs start -c job.yaml
 ```
 
-`tau-voice job-config --hub-dataset tau-voice-control@0.1.0 …` does the same
+`tau-voice job-config --hub-dataset tau-voice-control@0.1.1 …` does the same
 for tau-voice. `job-config` adds what a plain harbor run lacks: one agent per
 benchmark trial seed, the benchmark's own mean, and infrastructure retries.
 Harbor downloads the tasks at their pinned commit; nothing here needs a clone.
@@ -53,7 +53,15 @@ How each adapter was checked against its original harness is in its
 ## Images
 
 Every task names prebuilt images on `ghcr.io/amoh-ai` by digest
-(`…:tag@sha256:…`), so a version always runs the same bytes.
+(`…:tag@sha256:…`), so a version always runs the same bytes. From 0.1.1 the
+images are built for `linux/amd64` and `linux/arm64`, so they run without
+emulation on x86 backends and on ARM machines such as Apple silicon. 0.1.0
+pins older images built for x86 only.
+
+| Version | Images |
+|---|---|
+| 0.1.1 | `tau-voice-runtime:2174a60-ce6c029644`, `tau-voice-main:413a7f6ab7`, `eva-sidecar:039efa0a-077f8e4f23`, `eva-main:413a7f6ab7` |
+| 0.1.0 | `tau-voice-runtime:2174a60-3cefc407ea`, `tau-voice-main:c168c1f67a`, `eva-sidecar:039efa0a-21e9a0b06c`, `eva-main:c168c1f67a` |
 
 ## Contributing
 
