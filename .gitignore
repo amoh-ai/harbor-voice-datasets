@@ -1,0 +1,16 @@
+# Local junk. Task folders hold only what the converters write.
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+*.swp
+.env
+.env.*
+
+# Left by a conversion (see harbor-voice's CONTRIBUTING.md): job.yaml holds
+# local paths, and the parity sample file is an input, not a task.
+datasets/*/job.yaml
+eva-parity.json
