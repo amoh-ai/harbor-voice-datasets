@@ -13,7 +13,7 @@ rewrites the dataset's folder in a later commit.
 ## Run a dataset
 
 From a harbor-voice checkout, which carries the registry its code was
-released with:
+released with. Dataset 0.1.2 is in harbor-voice 0.1.2 and later:
 
 ```bash
 git clone https://github.com/amoh-ai/harbor-voice && cd harbor-voice && uv sync
@@ -65,7 +65,7 @@ as in 0.1.1.
 
 | Version | Images |
 |---|---|
-| 0.1.2 | same as 0.1.1 |
+| 0.1.2 | `tau-voice-runtime:2174a60-ce6c029644`, `tau-voice-main:413a7f6ab7`, `eva-sidecar:039efa0a-077f8e4f23`, `eva-main:413a7f6ab7` (the same as 0.1.1) |
 | 0.1.1 | `tau-voice-runtime:2174a60-ce6c029644`, `tau-voice-main:413a7f6ab7`, `eva-sidecar:039efa0a-077f8e4f23`, `eva-main:413a7f6ab7` |
 | 0.1.0 | `tau-voice-runtime:2174a60-3cefc407ea`, `tau-voice-main:c168c1f67a`, `eva-sidecar:039efa0a-21e9a0b06c`, `eva-main:c168c1f67a` |
 
