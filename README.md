@@ -70,6 +70,14 @@ publish a version, follow "Publishing a dataset version" in harbor-voice's
 CONTRIBUTING.md. Merge pull requests with a merge commit: a released commit
 must stay reachable, or every version pinned to it breaks.
 
+CI runs the same checks a contributor can run locally: the task rules
+(layout, `${VAR}` templates, no keys, digest-pinned images), then harbor's own
+`harbor lint` (the full command is in `.github/workflows/check.yml`).
+
+```bash
+uv run --no-project --with pyyaml python .github/check_tasks.py
+```
+
 ## License
 
 The tasks are under the [Apache License 2.0](LICENSE). They are built from

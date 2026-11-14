@@ -2,8 +2,8 @@
 
 - The layout: everything outside this repo's own files is a task folder,
   ``datasets/<name>/<task>/``, with a ``task.toml``.
-- No secrets: environment values are ``${VAR}`` templates, and no file holds
-  anything shaped like a key.
+- No secrets: environment values are ``${VAR}`` templates (in ``task.toml``,
+  ``voice.toml`` and compose), and no file holds anything shaped like a key.
 - Prebuilt images only, all on ``ghcr.io/amoh-ai`` and pinned by digest
   (``docker_image``, compose ``image:``, the Dockerfile's ``FROM``); nothing
   is built where it runs.
@@ -22,7 +22,7 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-OWN = {"README.md", "LICENSE", "NOTICE", ".gitattributes"}
+OWN = {"README.md", "LICENSE", "NOTICE", ".gitattributes", ".gitignore"}
 IMAGE = re.compile(r"^ghcr\.io/amoh-ai/[a-z0-9._-]+:[\w.-]+@sha256:[0-9a-f]{64}$")
 TEMPLATE = re.compile(r"^\$\{[A-Z][A-Z0-9_]*(:-[^${}]*)?\}$")
 SECRET_NAME = re.compile(r"KEY|SECRET|TOKEN|PASSWORD|CREDENTIAL")
@@ -58,6 +58,15 @@ def env_problems(where: str, table: dict) -> list[str]:
     return problems
 
 
+def compose_env(service: dict) -> list[str]:
+    """A compose service's environment as ``NAME`` / ``NAME=value`` entries,
+    whether it is written as a list or a mapping."""
+    env = service.get("environment") or []
+    if isinstance(env, dict):
+        return [k if v is None else f"{k}={v}" for k, v in env.items()]
+    return [str(entry) for entry in env]
+
+
 def image_problems(where: str, image: str) -> list[str]:
     if IMAGE.match(image):
         return []
@@ -84,6 +93,13 @@ def task_problems(task: Path) -> list[str]:
             "services"
         ) or {}
         for name, service in services.items():
+            service = service or {}
+            for entry in compose_env(service):
+                key, eq, value = entry.partition("=")
+                if eq and SECRET_NAME.search(key) and "${" not in value:
+                    problems.append(
+                        f"{where}: compose service {name} sets {key} to a literal value"
+                    )
             if "build" in service:
                 problems.append(f"{where}: compose service {name} is built, not pulled")
             if "image" in service:
